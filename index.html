@@ -3,33 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Place Your Order</title>
+  <title>Grey Matlock Orders</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<script>
+  const form = document.querySelector("form");
+  const thankYouMsg = document.getElementById("thankYouMsg");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      form.reset();
+      thankYouMsg.classList.remove("hidden");
+    } else {
+      alert("There was an issue submitting the form. Please try again.");
+    }
+  });
+</script>
+
+<body class="bg-blue-50 text-gray-800">
 
   <section class="min-h-screen flex flex-col items-center justify-center px-4 py-8">
-    <div class="w-full max-w-xl bg-white p-8 rounded-2xl shadow-xl">
-      <h1 class="text-3xl font-bold mb-4 text-center text-blue-600">Place Your Order</h1>
-      <p class="text-center text-gray-600 mb-6">Fill the form below and we’ll get back to you ASAP.</p>
+    <div class="w-full max-w-xl bg-white p-8 rounded-2xl shadow-2xl border-t-[8px] border-yellow-500">
+      
+      <!-- Logo -->
+      <div class="flex justify-center mb-6">
+        <img src="matlocklogo.png" alt="Grey Matlock Logo" class="h-20 mx-auto mb-4 object-contain bg-white p-2 rounded-xl shadow-sm">
 
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-4">
+      </div>
+
+      <!-- Heading -->
+      <h1 class="text-3xl font-bold mb-2 text-center text-blue-700">Place Your Order</h1>
+      <p class="text-center text-gray-600 mb-6">We bake with love. Fill out your order details below:</p>
+
+      <!-- Order Form -->
+	  <p id="thankYouMsg" class="hidden text-green-600 text-center font-semibold mt-4">
+  ✅ Thank you! Your order has been submitted.
+</p>
+
+      <form action="https://formspree.io/f/https://formspree.io/f/meokpbez" method="POST" class="space-y-4">
         <div>
           <label class="block text-sm font-semibold mb-1">Name</label>
-          <input type="text" name="name" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <input type="text" name="name" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1">Email</label>
-          <input type="email" name="email" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <input type="email" name="email" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
         <div>
           <label class="block text-sm font-semibold mb-1">Order Details</label>
-          <textarea name="order" rows="5" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+          <textarea name="order" rows="5" required class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
         </div>
-        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition">Submit Order</button>
+        <button type="submit" class="w-full bg-yellow-500 text-white py-3 rounded-xl font-semibold hover:bg-yellow-600 transition">
+          Submit Order
+        </button>
       </form>
 
-      <p class="text-sm text-gray-500 text-center mt-4">We'll notify you once your order is received.</p>
+      <p class="text-sm text-gray-500 text-center mt-6">You’ll be notified once we receive your order.</p>
     </div>
   </section>
 
